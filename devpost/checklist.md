@@ -9,6 +9,8 @@ Build mode: fast — explicitly selected by the owner. Verify and commit every s
 
 Scope, PRD and spec are approved. This build order is awaiting its required review. No application slice has been implemented or verified.
 
+Git prerequisite: separate metadata initialized safely and excluded; planning checkpoint `d83da5f` verified through filesystem-only push and a clean ordinary clone with identical content and no private/metadata paths. Application helper/startup verification remains in slice 1. External publication has not occurred.
+
 ## Slices
 
 - [ ] **1. Draw a creature and finish a genuine sample battle**
