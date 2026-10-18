@@ -1,0 +1,16 @@
+/devpost/learner-profile.md
+.env
+.env.*
+!.env.example
+/.inkborn-git/
+/.cache/
+/node_modules/
+/dist/
+/test-results/
+/playwright-report/
+/.agents/
+/.claude/
+/.codex/
+/.aws
+/agent/
+/skills-lock.json
