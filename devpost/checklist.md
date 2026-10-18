@@ -7,13 +7,13 @@ status: approved
 
 Build mode: fast — explicitly selected by the owner. Verify and commit every slice, keep this record current, and continue without per-feature approval. Pause for the planned early firsthand feedback and final learner review; additional pauses require a genuine blocker, a material plan change or an operation requiring authorization.
 
-Scope, PRD, spec and the complete five-slice build order are explicitly approved. Fast-mode implementation is authorized. No application slice has yet been implemented or verified. Resolve every security-scan finding before any code commit.
+Scope, PRD, spec and the complete five-slice build order are explicitly approved. Fast-mode implementation is authorized. Slice 1 is implemented, mechanically verified and committed as `82f64a6`. Slice 2 is next; its early firsthand learner checkpoint remains pending. Resolve every security-scan finding before any code commit.
 
-Git prerequisite: separate metadata initialized safely and excluded; planning checkpoint `d83da5f` verified through filesystem-only push and a clean ordinary clone with identical content and no private/metadata paths. Application helper/startup verification remains in slice 1. External publication has not occurred.
+Git prerequisite: separate metadata initialized safely and excluded; planning checkpoint `d83da5f` verified through filesystem-only push and a clean ordinary clone with identical content and no private/metadata paths. Application helper/startup verification passed in an ordinary clone: offline `npm ci`, production build, development HTML/API and production HTML/API without credentials. External publication has not occurred.
 
 ## Slices
 
-- [ ] **1. Draw a creature and finish a genuine sample battle**
+- [x] **1. Draw a creature and finish a genuine sample battle**
   Becomes usable: A running local game lets the player enter a clearly labeled sample, draw a creature, see that actual cropped drawing animate with three concept crystals, choose encounters, answer initial/follow-up questions and reach accurate results through victory or retreat.
   Why now: Proves INKBORN's defining drawing/concept/corruption/recovery relationship end to end before building presentation around an unproven kernel. Project bootstrapping belongs inside this usable increment.
   PRD ref: `prd.md > The Core Journey`, `Drawing and Sprite Preparation`, `Vulnerability Selection and Question Interaction`, `Finite Encounters and Combat Outcomes`, `Results, Review and Next Practice`
@@ -87,3 +87,6 @@ Reflection: Not yet offered; keep personal responses in the ignored learner prof
 Activity mode: Not yet performed; choose a concise guided trace or evidence-based recap appropriate to the actual build history.
 
 ## Revisions
+
+- Slice 1 evidence: lint and strict typecheck passed; 57 unit/integration tests and three production browser flows passed. Actual pointer-drawn creatures have distinct exported pixel hashes; recovery victory and six-answer unresolved retreat produce accurate results. Inspected title, binding, corrupted/recovery and results screenshots. Fixed desktop title overflow and narrowed sample evidence to supporting sentences. Production dependency audit: zero vulnerabilities; staged security scan passed before code commit.
+- Ordinary local bare clone and normal working clone retain only intended files; fresh offline install/build and both launch modes passed. Protected root `.git` remains untouched. No external publication.
