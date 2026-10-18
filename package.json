@@ -1,0 +1,47 @@
+{
+  "name": "inkborn",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "SEE LICENSE IN LICENSE",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "build": "tsc -b && vite build && tsc -p tsconfig.server.json",
+    "start": "node --env-file-if-exists=.env dist/server/server/index.js",
+    "lint": "eslint .",
+    "typecheck": "tsc -b --pretty false && tsc -p tsconfig.server.json --noEmit",
+    "test": "vitest run",
+    "test:e2e": "mkdir -p .cache/tmp && TMPDIR=\"$PWD/.cache/tmp\" PLAYWRIGHT_BROWSERS_PATH=\"$PWD/.cache/playwright\" playwright test",
+    "test:e2e:install": "mkdir -p .cache/tmp && TMPDIR=\"$PWD/.cache/tmp\" PLAYWRIGHT_BROWSERS_PATH=\"$PWD/.cache/playwright\" playwright install chromium",
+    "security:scan": "node scripts/security-scan.mjs"
+  },
+  "dependencies": {
+    "express": "5.3.0",
+    "idb": "8.0.4",
+    "motion": "14.3.0",
+    "openai": "7.38.0",
+    "pixi.js": "8.22.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.64.1",
+    "@types/express": "5.0.6",
+    "@types/node": "26.6.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.1.2",
+    "eslint": "10.13.0",
+    "fake-indexeddb": "6.2.6",
+    "tsx": "4.23.15",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.71.2",
+    "vite": "8.3.4",
+    "vitest": "5.0.5"
+  }
+}

@@ -1,0 +1,18 @@
+import { useEffect, useRef, useState } from 'react';
+import type { Concept, Question } from '../../shared/schema.js';
+import type { Answer } from '../battle/reducer.js';
+import { EvidenceExcerpt } from './EvidenceExcerpt.js';
+
+export function QuestionFolio({ question, concept, revision, onSubmit }: { question: Question; concept: Concept; revision: number; onSubmit: (optionId: string, revision: number) => void }) {
+  const [selected, setSelected] = useState<string | null>(null);
+  const title = useRef<HTMLHeadingElement>(null);
+  useEffect(() => { title.current?.focus(); }, [question.id]);
+  return <section className="question-folio manuscript" aria-label={`${concept.label} question`}><div className="manuscript-top"><span className="eyebrow">{question.kind === 'followup' ? 'A DIFFERENT WAY IN' : 'CONFRONT THE CONCEPT'}</span><span className="question-attempt">{question.kind === 'followup' ? '02 / 02' : '01 / 02'}</span></div><p className="question-concept">{concept.label}</p><h2 ref={title} tabIndex={-1}>{question.prompt}</h2><fieldset className="answer-options"><legend className="sr-only">Choose one answer</legend>{question.options.map((option, index) => <label key={option.id} className={`answer-option ${selected === option.id ? 'selected' : ''}`}><input type="radio" name={question.id} value={option.id} checked={selected === option.id} onChange={() => setSelected(option.id)}/><span className="option-letter">{String.fromCharCode(65 + index)}</span><span>{option.text}</span><span className="option-mark" aria-hidden="true">{selected === option.id ? '●' : '○'}</span></label>)}</fieldset><button className="button ink-button" disabled={!selected} onClick={() => { if (selected) onSubmit(selected, revision); }}>Cast your answer <span aria-hidden="true">↗</span></button><p className="folio-footnote">Take your time. Understanding has no countdown.</p></section>;
+}
+export function FeedbackFolio({ question, answer, presenting, onContinue }: { question: Question; answer: Answer; presenting: boolean; onContinue: () => void }) {
+  const correct = answer.correct;
+  const recovered = correct && question.kind === 'followup';
+  const title = useRef<HTMLHeadingElement>(null);
+  useEffect(() => { title.current?.focus(); }, [answer.questionId]);
+  return <section className={`question-folio manuscript feedback-folio ${correct ? 'success' : 'mistake'}`} aria-live="polite"><p className="eyebrow">{recovered ? 'CORRECTED AFTER FEEDBACK' : correct ? 'FIRST-ATTEMPT CORRECT' : question.kind === 'initial' ? 'A MISUNDERSTANDING REVEALED' : 'UNRESOLVED · WORTH REVISITING'}</p><div className="feedback-emblem" aria-hidden="true">{correct ? '✧' : '◇'}</div><h2 ref={title} tabIndex={-1}>{recovered ? 'Understanding breaks the spell.' : correct ? 'A weakness, shattered.' : question.kind === 'initial' ? 'The ink grows restless.' : 'Some ink remains.'}</h2><p className="feedback-explanation">{question.explanation}</p><div className="answer-recap"><span>Your answer</span><strong>{question.options.find(item => item.id === answer.selectedOptionId)?.text}</strong>{!correct && <><span>Supported answer</span><strong>{question.options.find(item => item.id === question.correctOptionId)?.text}</strong></>}</div>{!correct && question.hint && <p className="hint"><strong>A way forward</strong>{question.hint}</p>}<EvidenceExcerpt evidence={question.evidence}/><button className="button ink-button" disabled={presenting} onClick={onContinue}>{presenting ? 'The creature reacts…' : !correct && question.kind === 'initial' ? 'Face the follow-up' : 'Continue the encounter'} <span aria-hidden="true">→</span></button></section>;
+}

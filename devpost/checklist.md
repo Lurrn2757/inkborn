@@ -1,13 +1,13 @@
 ---
 doc: checklist
-status: draft
+status: approved
 ---
 
 # Build Checklist
 
 Build mode: fast — explicitly selected by the owner. Verify and commit every slice, keep this record current, and continue without per-feature approval. Pause for the planned early firsthand feedback and final learner review; additional pauses require a genuine blocker, a material plan change or an operation requiring authorization.
 
-Scope, PRD and spec are approved. This build order is awaiting its required review. No application slice has been implemented or verified.
+Scope, PRD, spec and the complete five-slice build order are explicitly approved. Fast-mode implementation is authorized. No application slice has yet been implemented or verified. Resolve every security-scan finding before any code commit.
 
 Git prerequisite: separate metadata initialized safely and excluded; planning checkpoint `d83da5f` verified through filesystem-only push and a clean ordinary clone with identical content and no private/metadata paths. Application helper/startup verification remains in slice 1. External publication has not occurred.
 

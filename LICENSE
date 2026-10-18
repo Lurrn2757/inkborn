@@ -1,0 +1,36 @@
+INKBORN license scope
+=====================
+
+The MIT License below applies to INKBORN application, engine and tooling code,
+generic drawing/rendering/audio machinery, and technical documentation, except
+for the exclusions expressly identified here.
+
+Excluded from MIT: the INKBORN name, wordmark and emblem, and original branding
+and custom creative assets in public/art/ and src/creative/. Their limited
+bundled-project permissions and inventory appear in ASSETS-LICENSE.md. Access
+to this repository does not transfer branding rights or imply a registered
+trademark. Third-party dependencies/fonts retain their respective licenses;
+see THIRD_PARTY_NOTICES.md. Learner-provided notes and drawings remain user
+content and are not automatically licensed under this notice.
+
+MIT License
+
+Copyright (c) 2026 INKBORN contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
