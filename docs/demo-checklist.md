@@ -23,9 +23,11 @@ Choose **Full Examination · 30**, **50**, or **100**. Same schema, reducer, ren
 
 Select a genuine selectable-text PDF, or PNG/JPEG/WEBP page images (multiple supported). Review draft text, numbered choices, marks, source pages and warnings. Correct any OCR errors. Enter answers in the question editor or import a plain text numbered key (`1: A`). Confirm supported positive marking and the key, then draw and play. No key means ungraded review only. Scanned PDFs require image pages/transcription. Images need recognition-asset downloads on first use; no paper bytes are sent to a provider.
 
-## Review checkpoints still owned by the learner
+## Firsthand play and remaining review checkpoints
 
-Try a new paper/drawing, one correct answer, one mistake, reload/continue, failure or victory and its report. Assess drawing recognition, readable attacks, question clarity, sound, motion and extracted-paper correctness. Agent screenshots and tests do not constitute personal feedback or release approval. See the saved official checklist; no pending learner checkbox is automatically approved.
+The owner confirmed firsthand gameplay on **27 October 2026**. The [playtest record](playtest-report.md) documents that confirmation, and the [build checklist](../devpost/checklist.md) now marks firsthand play complete.
+
+For detailed review, record coverage of a new paper/drawing, one correct answer, one mistake, reload/continue, failure or victory and its report. Assess drawing recognition, readable attacks, question clarity, sound, motion and extracted-paper correctness. These specific observations and final release readiness were not included in the gameplay confirmation.
 
 ## Cinematic overhaul route
 

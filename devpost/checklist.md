@@ -7,9 +7,9 @@ status: approved
 
 Build mode: fast — explicitly selected by the owner. Verify and commit every slice, keep this record current, and continue without per-feature approval. Pause for the planned early firsthand feedback and final learner review; additional pauses require a genuine blocker, a material plan change or an operation requiring authorization.
 
-Scope, PRD, spec and the complete five-slice build order are explicitly approved. Fast-mode implementation is authorized. Slice 1 is implemented, mechanically verified and committed as `82f64a6`. Slice 2 is implemented and mechanically verified; its early firsthand learner checkpoint remains pending, so it is not yet checked or committed. Resolve every security-scan finding before any code commit.
+Scope, PRD, spec and the complete five-slice build order are explicitly approved. Fast-mode implementation is authorized. Slice 1 is implemented, mechanically verified and committed as `82f64a6`. Slice 2 and subsequent cinematic work have been implemented, mechanically verified and committed. The owner confirmed firsthand gameplay on **27 October 2026**; detailed scenario feedback and final release readiness remain unrecorded. See the [playtest record](../docs/playtest-report.md). Slice checkboxes retain their full acceptance criteria. Resolve every security-scan finding before any code commit.
 
-Git prerequisite: separate metadata initialized safely and excluded; planning checkpoint `d83da5f` verified through filesystem-only push and a clean ordinary clone with identical content and no private/metadata paths. Application helper/startup verification passed in an ordinary clone: offline `npm ci`, production build, development HTML/API and production HTML/API without credentials. External publication has not occurred.
+Git prerequisite: separate metadata initialized safely and excluded; planning checkpoint `d83da5f` verified through filesystem-only push and a clean ordinary clone with identical content and no private/metadata paths. Application helper/startup verification passed in an ordinary clone: offline `npm ci`, production build, development HTML/API and production HTML/API without credentials. The owner subsequently authorized publication: the code is available in the public [Lurrn2757/inkborn repository](https://github.com/Lurrn2757/inkborn). Frontend-only Netlify deployment is documented in [netlify-deployment.md](../docs/netlify-deployment.md).
 
 ## Slices
 
@@ -65,12 +65,13 @@ Git prerequisite: separate metadata initialized safely and excluded; planning ch
 
 ## Hands-on Checkpoints
 
-- [ ] Early usable behavior explored — after slice 2; actual learner observations recorded and agreed fixes resolved before marking the slice complete.
+- [x] Firsthand gameplay confirmed — the owner reported “we have played the game” on 27 October 2026 and requested this checklist/documentation update. See the [playtest record](../docs/playtest-report.md).
+- [ ] Detailed early-checkpoint feedback recorded — drawing/adjustment/awakening, mistake/recovery and retreat coverage, observations and any agreed fixes still need specific evidence before marking slice 2 complete.
 - [ ] Final kick-the-tires exploration and feedback completed — after the integrated mechanical release checks; full journey and awkward inputs tried firsthand.
 
 ## Final Review
 
-No final learner feedback has been received. Add agreed revision tasks here as unchecked items, then verify, commit and have the learner retry affected behavior before checking them.
+Firsthand gameplay is confirmed in the [27 October playtest record](../docs/playtest-report.md). No specific revision requests or explicit final-readiness statement accompanied that confirmation. Add agreed revision tasks here as unchecked items, then verify, commit and have the learner retry affected behavior before checking them.
 
 - [ ] Final review complete — feedback resolved and learner explicitly confirms ready to ship.
 
@@ -87,6 +88,8 @@ Reflection: Not yet offered; keep personal responses in the ignored learner prof
 Activity mode: Not yet performed; choose a concise guided trace or evidence-based recap appropriate to the actual build history.
 
 ## Revisions
+
+The entries below preserve the evidence and review status at each implementation checkpoint. The 27 October update at the end records the subsequent firsthand-play confirmation and publication status.
 
 - Slice 1 evidence: lint and strict typecheck passed; 57 unit/integration tests and three production browser flows passed. Actual pointer-drawn creatures have distinct exported pixel hashes; recovery victory and six-answer unresolved retreat produce accurate results. Inspected title, binding, corrupted/recovery and results screenshots. Fixed desktop title overflow and narrowed sample evidence to supporting sentences. Production dependency audit: zero vulnerabilities; staged security scan passed before code commit.
 - Ordinary local bare clone and normal working clone retain only intended files; fresh offline install/build and both launch modes passed. Protected root `.git` remains untouched. No external publication.
@@ -105,3 +108,6 @@ Activity mode: Not yet performed; choose a concise guided trace or evidence-base
 - Cinematic boss overhaul directive (26 October): owner authorized autonomous reversible implementation and local commits without the older slice-approval pauses. The existing working implementation is preserved in `4cdee66` and bestiary assets in `3ae5e60`, on isolated branch `overhaul/cinematic-boss`, through `.inkborn-git` only. See [cinematic-boss-overhaul.md](cinematic-boss-overhaul.md) for the new scope, exact rendering contract and verification. Historical learner-review boxes remain unchanged.
 
 - Cinematic overhaul verification: strict typecheck, lint, 172 unit/integration tests, a 41-case production-browser suite and the final three-case overhaul regression passed (42 distinct browser scenarios across runs). Scoring reducers, saved examination reconstruction and API/shared code are unchanged from baseline. Four viewport sizes, all five actual engine attacks, 0/10 and 10/10 reports, graphics failure/retry, reduced motion, session reload, original drawings, optional rigs and both Classic renderers have passing evidence. All 20 original cues rendered through native Web Audio. Full evidence and limitations are recorded in the overhaul document; historical learner-review approval remains unperformed.
+
+- Owner playtest update (27 October 2026): the owner confirmed “we have played the game” and asked for the checklist and documentation to be updated on GitHub. Firsthand gameplay is now checked above and recorded in [playtest-report.md](../docs/playtest-report.md). Specific modes, scenarios and qualitative feedback were not supplied, so broader acceptance items retain their existing status.
+- Publication update: the owner authorized the GitHub push and public visibility. The latest application includes Arena (`6dc2ddf`) and a frontend-only Netlify configuration (`a5361bc`, `f298066`) with Arena disabled for that deployment. The frontend build, local and deployed single-player smoke checks passed; the pre-publication application checks included 206 passing unit/integration tests. Netlify account claiming and permanent public availability have not been confirmed.

@@ -7,7 +7,7 @@ status: implementation-authorized-reviews-pending
 
 The owner explicitly requested the full Exam Siege directive on 26 October, authorized Fast-mode implementation and incremental Three.js integration, and prioritized reliable scoring/builds. This is a consequential expansion of the original three-concept learning kernel: an immutable examination with marks, early mathematical failure, extraction review and a performance report. Classic Battle remains available.
 
-The existing approved scope, PRD, spec and authentic checklist are historical records and are preserved. This addendum records the new instruction; it does not retroactively approve curriculum reviews, learner feedback, final release or submission copy. The outstanding original early firsthand checkpoint and final review remain pending. No submission writing or external publication is authorized.
+The existing approved scope, PRD, spec and authentic checklist preserve the original implementation plan and evidence. At the time of this 26 October directive, the original firsthand checkpoint and final review were pending and external publication was not authorized. The owner subsequently authorized public GitHub publication and frontend hosting, and confirmed firsthand gameplay on **27 October 2026**; see the [playtest record](../docs/playtest-report.md). Detailed scenario feedback and final readiness remain unrecorded.
 
 ## Implementation sequence
 
@@ -16,7 +16,7 @@ The existing approved scope, PRD, spec and authentic checklist are historical re
 - [x] Procedural 3D titan with original player ink, attacks, fallback and accessible controls; mechanically verified.
 - [x] Integrated final regression evidence, documentation and repeatable demonstration complete; firsthand approval remains pending.
 
-Checked implementation items record agent-run mechanical evidence only. Learner observations are recorded only when actually supplied. No original learner-review checkbox is marked complete by this addendum.
+Checked implementation items record agent-run mechanical evidence. The later owner confirmation is recorded separately in the learner checkpoints below and in the build checklist.
 
 ## Delivered behavior and decisions
 
@@ -50,11 +50,12 @@ This upgrade does not implement the original still-pending personal-note AI prep
 
 ## Learner checkpoints
 
-- [ ] Firsthand Exam Siege play/review and actual feedback.
+- [x] Firsthand gameplay confirmed by the owner on 27 October 2026; see the [playtest record](../docs/playtest-report.md).
+- [ ] Exam Siege-specific scenario coverage and detailed feedback recorded; the owner's confirmation did not identify a mode or test route.
 - [ ] Final learner review, agreed revisions and explicit readiness.
 - [ ] Learning wrap-up/code tour activity, based on actual implemented code.
 
-The running local production app and specific Quick Battle review route were provided to the owner. Official `5-build` requires a planned early feedback/final review checkpoint; the owner has not yet supplied observations. No automated test or screenshot substitutes for this. No retrospective approval, learner response, final submission description, personal answer or narration is authored here.
+The running local production app and specific Quick Battle review route were provided to the owner. Firsthand gameplay has now been confirmed. Detailed observations, any agreed revisions and explicit final readiness are separate remaining review items. The dated confirmation is recorded without attributing unreported scenarios or feedback to the owner.
 
 ## References
 
