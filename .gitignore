@@ -14,3 +14,4 @@
 /.aws
 /agent/
 /skills-lock.json
+/.netlify/

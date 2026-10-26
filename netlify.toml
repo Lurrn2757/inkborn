@@ -1,0 +1,12 @@
+[build]
+  command = "npm run build:frontend"
+  publish = "dist/client"
+
+[build.environment]
+  NODE_VERSION = "24"
+  VITE_ARENA_ENABLED = "false"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

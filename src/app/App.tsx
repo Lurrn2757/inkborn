@@ -11,6 +11,7 @@ import { NotesScreen } from '../screens/NotesScreen.js';
 import { CrystalPreview, DrawingScreen } from '../screens/DrawingScreen.js';
 import { BattleScreen } from '../screens/BattleScreen.js';
 import { ResultsScreen } from '../screens/ResultsScreen.js';
+const arenaEnabled = import.meta.env.VITE_ARENA_ENABLED !== 'false';
 const ArenaScreen = lazy(() => import('../arena/ArenaScreen.js').then(module => ({ default: module.ArenaScreen })));
 const ExamSiege = lazy(() => import('../exam/ExamSiege.js').then(module => ({ default: module.ExamSiege })));
 import { useReducedMotion } from '../hooks/useReducedMotion.js';
@@ -27,7 +28,7 @@ function ScreenFrame({ children, reducedMotion }: { children: ReactNode; reduced
 export function App() {
   const state = useSyncExternalStore(session.subscribe, session.getSnapshot);
   const reducedMotion = useReducedMotion(state.settings.motion);
-  const [arena, setArena] = useState(() => new URLSearchParams(window.location.search).has('arena'));
+  const [arena, setArena] = useState(() => arenaEnabled && new URLSearchParams(window.location.search).has('arena'));
   const [siege, setSiege] = useState(false);
   const [help, setHelp] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -60,7 +61,7 @@ export function App() {
   const { lesson, sprite, battle } = state;
   if (arena) content = <Suspense fallback={<main className="page"><h1>Opening the Arena…</h1></main>}><ArenaScreen reducedMotion={reducedMotion} onExit={() => { setArena(false); window.history.replaceState(null, '', window.location.pathname); }}/></Suspense>;
   else if (siege) content = <Suspense fallback={<main className="page"><h1>Opening the examination chamber…</h1></main>}><ExamSiege reducedMotion={reducedMotion} onExit={() => { setSiege(false); session.toTitle(); }}/></Suspense>;
-  else if (state.screen === 'title') content = <TitleScreen onArena={() => setArena(true)} onSiege={() => setSiege(true)} onStart={start} onContinue={state.resumeScreen ? session.resume : null} onHelp={() => setHelp(true)}/>;
+  else if (state.screen === 'title') content = <TitleScreen onArena={arenaEnabled ? () => setArena(true) : null} onSiege={() => setSiege(true)} onStart={start} onContinue={state.resumeScreen ? session.resume : null} onHelp={() => setHelp(true)}/>;
   else if (state.screen === 'notes' && lesson) content = <NotesScreen lesson={lesson} onChoose={session.chooseLesson} onContinue={() => session.navigate('draw')}/>;
   else if (state.screen === 'draw' && lesson) content = <DrawingScreen drawing={state.drawing} lesson={lesson} preparing={state.preparing} error={state.error} onChange={session.setDrawing} onError={session.setError} onPrepare={() => { void session.prepare(); }} onBack={() => session.navigate('notes')}/>;
   else if (state.screen === 'preview' && sprite && lesson) content = <CrystalPreview sprite={sprite} lesson={lesson} onChange={session.setSprite} onAwaken={session.awaken} onRedraw={() => session.navigate('draw')}/>;
