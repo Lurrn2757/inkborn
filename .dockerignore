@@ -1,0 +1,17 @@
+.git
+.inkborn-git
+.env
+.env.*
+!.env.example
+.cache
+node_modules
+dist
+playwright-report
+test-results
+.agents
+.claude
+.codex
+agent
+devpost/learner-profile.md
+devpost/evidence
+.aws

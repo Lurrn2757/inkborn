@@ -4,7 +4,7 @@ import { existsSync } from 'node:fs';
 import path from 'node:path';
 import type { ServerConfig } from './config.js';
 
-export function createApp(config: ServerConfig, clientDirectory?: string) {
+export function createApp(config: ServerConfig, clientDirectory?: string, arena?: { publicUrl: string | null }) {
   const app = express();
   app.disable('x-powered-by');
   app.use(express.json({ limit: '128kb' }));
@@ -17,6 +17,7 @@ export function createApp(config: ServerConfig, clientDirectory?: string) {
       preparationAvailable: false,
     });
   });
+  app.get('/api/arena/status', (_request, response) => { response.json({ enabled: Boolean(arena), protocol: 1, publicUrl: arena?.publicUrl ?? null, persistence: 'bounded-memory', internetDeploymentVerified: false }); });
   app.post('/api/lessons', (_request, response) => {
     response.status(503).json({ error: { code: 'PREPARATION_UNAVAILABLE', message: 'Personal-note preparation is not available yet. Choose a curated sample to play.' } });
   });
