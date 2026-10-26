@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { BattleViewport } from './BattleViewport';
 import { createCanvasArena } from './CanvasArena';
 import { evaluateTimeline, PresentationClock } from './motion';
 import type { ArenaRenderer, ArenaViewProps } from './types';
@@ -109,12 +110,12 @@ export function ArenaView(props: ArenaViewProps) {
 
   useEffect(() => { clockRef.current?.sample(props); }, [props]);
 
-  return <div className="arena-canvas" data-renderer={status} data-effects={props.reducedMotion || status === 'canvas' ? 'reduced' : 'full'} data-sprite-status={imageFailed ? 'error' : imageLoaded ? 'ready' : 'loading'} style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden' }}>
+  return <BattleViewport><div className="arena-canvas" data-renderer={status} data-effects={props.reducedMotion || status === 'canvas' ? 'reduced' : 'full'} data-sprite-status={imageFailed ? 'error' : imageLoaded ? 'ready' : 'loading'} style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden' }}>
     <div ref={hostRef} style={{ position: 'absolute', inset: 0 }} />
     {status === 'error' && <p role="alert">The chamber could not be drawn. Your drawing and answers remain in this page. Try opening the chamber again.</p>}
     {imageFailed && <p role="alert">Your creature image could not be loaded. Try opening the chamber again.</p>}
     {(status === 'error' || imageFailed) && <button className="button secondary" style={{ position: 'absolute', top: 100, left: 20 }} onClick={() => setAttempt(value => value + 1)}>Retry graphics</button>}
     {status === 'canvas' && <span className="arena-render-notice" style={{ position: 'absolute', top: 18, right: 18, fontSize: 9, color: '#d9c8a5', opacity: .8 }}>Reduced effects · Canvas mode</span>}
     {experimental && <button className="text-button" style={{ position: 'absolute', right: 18, bottom: 110, fontSize: 11, minHeight: 40 }} onClick={() => setExperimental(false)}>Use standard visuals</button>}
-  </div>;
+  </div></BattleViewport>;
 }

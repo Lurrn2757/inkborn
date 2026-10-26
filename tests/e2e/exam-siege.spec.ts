@@ -18,6 +18,7 @@ async function confirmAndDraw(page: Page) {
   await page.getByRole('button', { name: /Draw your titan/ }).click();
   const canvas = page.locator('.drawing-canvas');
   await expect(canvas).toBeVisible();
+  await canvas.scrollIntoViewIfNeeded();
   const bounds = (await canvas.boundingBox())!;
   // Asymmetric ears, round body, two eyes: a fresh recognizable original input.
   const points = [[.24, .7], [.3, .21], [.43, .37], [.63, .17], [.76, .67], [.57, .76], [.24, .7]];
@@ -286,6 +287,7 @@ test('a narrow drawing retains its ratio in the optional keyboard rig and initia
   await page.getByRole('button', { name: /Quick Battle/ }).click();
   await page.getByRole('checkbox', { name: /I confirm every included question/ }).check();
   await page.getByRole('button', { name: /Draw your titan/ }).click();
+  await page.locator('.drawing-canvas').scrollIntoViewIfNeeded();
   const bounds = (await page.locator('.drawing-canvas').boundingBox())!;
   await page.mouse.move(bounds.x + bounds.width * .49, bounds.y + bounds.height * .12);
   await page.mouse.down();

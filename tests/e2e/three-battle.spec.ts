@@ -138,6 +138,7 @@ test('mobile 3D keeps a narrow drawing playable and stops ambient movement under
   await page.setViewportSize({ width: 390, height: 844 });
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await openDrawing(page, '/?renderer=three');
+  await page.locator('.drawing-canvas').scrollIntoViewIfNeeded();
   const bounds = (await page.locator('.drawing-canvas').boundingBox())!;
   await page.mouse.move(bounds.x + bounds.width * .46, bounds.y + bounds.height * .12); await page.mouse.down();
   await page.mouse.move(bounds.x + bounds.width * .5, bounds.y + bounds.height * .86, { steps: 20 }); await page.mouse.up();

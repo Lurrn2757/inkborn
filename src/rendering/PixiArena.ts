@@ -1,3 +1,4 @@
+import { GAME_WIDTH, GAME_HEIGHT } from './viewport';
 import { Application, Circle, Container, Graphics, Sprite, Text, Texture } from 'pixi.js';
 import { evaluateReleaseSeal, paintChamber } from '../creative/chamber';
 import { crystalColor, evaluatePose, evaluateTimeline, layoutArena, visualCrystalState } from './motion';
@@ -105,12 +106,12 @@ export async function createPixiArena(onContextFailure: () => void): Promise<Are
   return {
     canvas,
     resize(w, h) {
-      if (backgroundTexture && width === w && height === h) return;
-      width = Math.max(w, 1); height = Math.max(h, 1);
-      app.renderer.resize(width, height);
+      width = GAME_WIDTH; height = GAME_HEIGHT;
+      app.renderer.resize(Math.max(w, 1), Math.max(h, 1));
+      app.stage.scale.set(w / width, h / height);
       const painted = document.createElement('canvas');
-      painted.width = Math.ceil(width * Math.min(window.devicePixelRatio || 1, 2));
-      painted.height = Math.ceil(height * Math.min(window.devicePixelRatio || 1, 2));
+      painted.width = Math.ceil(w * Math.min(window.devicePixelRatio || 1, 2));
+      painted.height = Math.ceil(h * Math.min(window.devicePixelRatio || 1, 2));
       const context = painted.getContext('2d');
       if (context) paintChamber(context, painted.width, painted.height);
       const previous = backgroundTexture;

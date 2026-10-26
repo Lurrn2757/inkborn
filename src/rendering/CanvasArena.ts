@@ -1,3 +1,4 @@
+import { GAME_WIDTH, GAME_HEIGHT } from './viewport';
 import { evaluateReleaseSeal, paintChamber } from '../creative/chamber';
 import { crystalColor, evaluatePose, evaluateTimeline, layoutArena, visualCrystalState } from './motion';
 import { createInkRim, evaluateInkFragment, sampleInkImage, type InkSample } from './ink';
@@ -46,8 +47,8 @@ export function createCanvasArena(): ArenaRenderer {
   return {
     canvas,
     resize(w, h) {
-      width = Math.max(1, w); height = Math.max(1, h);
-      resolution = Math.min(window.devicePixelRatio || 1, 2);
+      width = GAME_WIDTH; height = GAME_HEIGHT;
+      resolution = Math.min(window.devicePixelRatio || 1, 2) * Math.min(w / width, h / height);
       canvas.width = Math.round(width * resolution); canvas.height = Math.round(height * resolution);
       background.width = canvas.width; background.height = canvas.height;
       if (backgroundContext) paintChamber(backgroundContext, background.width, background.height);

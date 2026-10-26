@@ -7,6 +7,7 @@ export async function openDrawing(page: Page, path = '/') {
   await expect(page.locator('.drawing-canvas')).toBeVisible();
 }
 export async function draw(page: Page, variant = 0) {
+  await page.locator('.drawing-canvas').scrollIntoViewIfNeeded();
   const bounds = await page.locator('.drawing-canvas').boundingBox();
   if (!bounds) throw new Error('Drawing surface has no usable bounds.');
   const points = variant === 0
@@ -38,8 +39,11 @@ export async function awaken(page: Page, renderer: RegExp = /pixi|canvas/) {
   await page.getByRole('button', { name: /Awaken my creature/ }).click();
   await expect(page.locator('.arena-canvas')).toHaveAttribute('data-sprite-status', 'ready');
   await expect(page.locator('.arena-canvas')).toHaveAttribute('data-renderer', renderer);
-  await page.getByRole('button', { name: /Skip awakening/ }).click();
-  await expect(page.getByRole('heading', { name: 'Confront what you know.' })).toBeVisible();
+  const battleHeading = page.getByRole('heading', { name: 'Confront what you know.' });
+  // Reduced motion can finish its 900 ms awakening while the optional skip is clicked.
+  // Require the real battle heading if the automatically removed button wins that race.
+  await page.getByRole('button', { name: /Skip awakening/ }).click({ timeout: 2000 }).catch(async () => { await expect(battleHeading).toBeVisible(); });
+  await expect(battleHeading).toBeVisible();
 }
 export async function answer(page: Page, optionIndex: number) {
   await page.locator('.answer-option').nth(optionIndex).click();

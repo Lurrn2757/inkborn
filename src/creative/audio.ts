@@ -1,6 +1,6 @@
 /* INKBORN original sound compositions/presets. All rights reserved; see ASSETS-LICENSE.md. */
 
-export type AudioCue = 'awakening' | 'select' | 'hit' | 'corrupt' | 'recovery' | 'unresolved' | 'victory' | 'scarredVictory' | 'critical' | 'retreat' | 'ink' | 'siegeSlam' | 'siegeStorm' | 'siegeBeam' | 'siegeSweep' | 'siegeFracture' | 'siegeFailure' | 'siegeReport';
+export type AudioCue = 'siegeSigil' | 'chamber' | 'awakening' | 'select' | 'hit' | 'corrupt' | 'recovery' | 'unresolved' | 'victory' | 'scarredVictory' | 'critical' | 'retreat' | 'ink' | 'siegeSlam' | 'siegeStorm' | 'siegeBeam' | 'siegeSweep' | 'siegeFracture' | 'siegeFailure' | 'siegeReport';
 export interface CueVoice {
   kind: 'tone' | 'noise';
   frequency: number;
@@ -13,6 +13,18 @@ export interface CueVoice {
 
 /** Original short, restrained alchemical gestures; no recordings or borrowed melodies. */
 export const cuePresets: Readonly<Record<AudioCue, readonly CueVoice[]>> = {
+  siegeSigil: [
+    { kind: 'tone', frequency: 196, endFrequency: 392, delay: 0, duration: .7, gain: .06, shape: 'triangle' },
+    { kind: 'tone', frequency: 784, endFrequency: 1175, delay: .65, duration: .5, gain: .045, shape: 'sine' },
+    { kind: 'noise', frequency: 2600, delay: 1.2, duration: .3, gain: .1 },
+    { kind: 'tone', frequency: 147, endFrequency: 49, delay: 1.2, duration: .45, gain: .12, shape: 'triangle' },
+    { kind: 'tone', frequency: 1175, endFrequency: 880, delay: 1.25, duration: 1, gain: .05, shape: 'sine' },
+  ],
+  chamber: [
+    { kind: 'tone', frequency: 49, endFrequency: 48.6, delay: 0, duration: 7, gain: .018, shape: 'sine' },
+    { kind: 'tone', frequency: 73.42, endFrequency: 72.9, delay: .6, duration: 6.5, gain: .011, shape: 'sine' },
+    { kind: 'tone', frequency: 196, endFrequency: 195, delay: 2, duration: 4, gain: .006, shape: 'sine' },
+  ],
   awakening: [
     { kind: 'tone', frequency: 73.42, endFrequency: 146.83, delay: 0, duration: 1.7, gain: .12, shape: 'sine' },
     { kind: 'tone', frequency: 220, delay: .28, duration: 1.3, gain: .07, shape: 'triangle' },

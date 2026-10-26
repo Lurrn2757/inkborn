@@ -59,7 +59,9 @@ describe('crystal titan presentation', () => {
     expect(titanPose(2, 3, special, false).dissolve).toBe(0);
     expect(titanPose(2, 3, special, false).darkness).toBe(0);
     expect(titanPose(2, 3, event('final'), false).darkness).toBeGreaterThan(.7);
-    expect(titanPose(2, .7, event('final'), false).raise).toBeGreaterThan(2);
+    expect(titanPose(2, .7, event('final'), false).raise).toBe(0);
+    expect(titanPose(2, .7, event('final'), false).breath).toBe(0);
+    expect(titanPose(2, 1, event('final'), false).raise).toBeGreaterThan(2);
     expect(special).toEqual(snapshot);
   });
 

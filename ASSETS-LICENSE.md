@@ -27,3 +27,5 @@ Learners retain rights in their own notes and drawings. Submitting or saving the
 ## Monster illustration inventory
 
 `public/art/monsters/cathedral-wraith.png`, `thorn-devourer.png` and `abyssal-oracle.png` are optional AI-generated INKBORN monster illustrations, produced with the built-in image_gen tool on26 October2026. Art direction/catalog lives in `src/creative/monsters.ts`; exact prompts/provenance are in `public/art/monsters/provenance.json`. These are project creative assets under the above bundled-use boundaries, not player-made drawings or third-party stock characters. No claim of human illustration authorship is made. Generic loading/editing code in `src/drawing/presets.ts` remains MIT machinery.
+
+The cinematic chamber composition in `src/creative/bossChamber.ts`, visual styling in `src/creative/boss.css`, and additions to the authored titan/audio compositions are original INKBORN creative assets under this document. Generic viewport, mesh deformation, effect/lifecycle and rendering adapter machinery remains under the code license. No additional third-party artwork or audio was introduced by this overhaul.

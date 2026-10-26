@@ -43,13 +43,23 @@ export function ExamSiege({ reducedMotion, onExit }: { reducedMotion: boolean; o
     return () => { cancelled = true; };
   }, []);
   const event = save?.battle?.event;
+  const inChamber = save?.stage === 'battle' || save?.stage === 'awakening';
+  useEffect(() => {
+    if (!inChamber) return;
+    let pulse = 0;
+    const atmosphere = () => audio.play('chamber', `chamber:${save?.sprite?.id}:${Date.now()}:${pulse++}`);
+    atmosphere(); const interval = setInterval(atmosphere, 8500);
+    return () => clearInterval(interval);
+  }, [inChamber, save?.sprite?.id]);
+  const unstable = save?.battle ? examMetrics(save.battle, save.exam).bossProgress >= .7 : false;
+  useEffect(() => { if (unstable) audio.play('critical', `unstable:${save?.sprite?.id}`); }, [unstable, save?.sprite?.id]);
   useEffect(() => {
     if (!event) return;
     const metrics = save?.battle && save ? examMetrics(save.battle, save.exam) : null;
-    const cue: AudioCue = event.type === 'victory' ? metrics?.ending === 'scarred' ? 'scarredVictory' : 'victory' : event.type === 'finisher' ? 'recovery' : event.type === 'hit' ? 'siegeFracture' : event.type === 'final' ? 'siegeFailure' : event.type === 'slam' ? 'siegeSlam' : event.type === 'beam' ? 'siegeBeam' : event.type === 'sweep' ? 'siegeSweep' : 'siegeStorm';
+    const cue: AudioCue = event.type === 'victory' ? metrics?.ending === 'scarred' ? 'scarredVictory' : 'victory' : event.type === 'finisher' ? 'siegeSigil' : event.type === 'hit' ? 'siegeFracture' : event.type === 'final' ? 'siegeFailure' : event.type === 'slam' ? 'siegeSlam' : event.type === 'beam' ? 'siegeBeam' : event.type === 'sweep' ? 'siegeSweep' : 'siegeStorm';
     audio.play(cue, `siege:${save?.sprite?.id}:${event.id}`);
     setPresenting(true);
-    const timer = setTimeout(() => setPresenting(false), reducedMotion ? 180 : titanEventDuration(event.type) * 1000 + 50);
+    const timer = setTimeout(() => setPresenting(false), reducedMotion ? 180 : titanEventDuration(event.type) * 1000 + 120);
     return () => clearTimeout(timer);
   // The event ID is the committed presentation boundary, unrelated to grading.
   }, [event?.id, reducedMotion]);

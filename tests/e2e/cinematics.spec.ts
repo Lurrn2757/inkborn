@@ -54,6 +54,7 @@ test('real awakening, direct crystal selection, corruption, recovery and ink dis
 test('reduced motion and a narrow asymmetric creature keep finite battles playable', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await openDrawing(page);
+  await page.locator('.drawing-canvas').scrollIntoViewIfNeeded();
   const box = (await page.locator('.drawing-canvas').boundingBox())!;
   await page.mouse.move(box.x + box.width * .12, box.y + box.height * .15); await page.mouse.down();
   await page.mouse.move(box.x + box.width * .15, box.y + box.height * .85, { steps: 14 }); await page.mouse.up();

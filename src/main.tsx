@@ -10,3 +10,5 @@ import './creative/siege.css';
 const root = document.getElementById('root');
 if (!root) throw new Error('The application root is missing.');
 ReactDOM.createRoot(root).render(<React.StrictMode><ErrorBoundary><App/></ErrorBoundary></React.StrictMode>);
+
+import './creative/boss.css';

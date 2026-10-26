@@ -1,3 +1,4 @@
+import { GAME_WIDTH, GAME_HEIGHT, GAME_ASPECT } from './viewport';
 import * as THREE from 'three';
 import { buildThreeChamber } from '../creative/threeChamber';
 import { evaluateReleaseSeal } from '../creative/chamber';
@@ -135,7 +136,7 @@ export function createThreeArena(onFailure: () => void): ArenaRenderer & { diagn
     canvas,
     diagnostics: () => ({ drawCalls: renderer.info.render.calls, triangles: renderer.info.render.triangles, textures: renderer.info.memory.textures, geometries: renderer.info.memory.geometries, pixelRatio: renderer.getPixelRatio() }),
     resize(w, h) {
-      width = Math.max(1, w); height = Math.max(1, h); camera.aspect = width / height; camera.updateProjectionMatrix(); renderer.setSize(width, height, false);
+      width = GAME_WIDTH; height = GAME_HEIGHT; camera.aspect = GAME_ASPECT; camera.updateProjectionMatrix(); renderer.setSize(Math.max(1, w), Math.max(1, h), false);
     },
     render(props, image, frame) {
       if (disposed) return;

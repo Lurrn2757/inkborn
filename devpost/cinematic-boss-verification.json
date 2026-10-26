@@ -1,0 +1,205 @@
+{
+  "verifiedAtUtc": "2026-10-26T13:26:07.927423+00:00",
+  "branch": "overhaul/cinematic-boss",
+  "baselineCommits": [
+    "4cdee66",
+    "3ae5e60"
+  ],
+  "logicalResolution": {
+    "width": 1920,
+    "height": 1080,
+    "aspectRatio": "16:9"
+  },
+  "viewports": [
+    [
+      1920,
+      1080
+    ],
+    [
+      1600,
+      900
+    ],
+    [
+      1366,
+      768
+    ],
+    [
+      390,
+      844
+    ]
+  ],
+  "dprCaps": {
+    "titan": 1.25,
+    "classicThree": 1.5,
+    "pixi": 2,
+    "canvas": 2
+  },
+  "checks": {
+    "baselineProductionBuild": "passed before application edits",
+    "typecheck": "passed",
+    "lint": "passed",
+    "unitIntegration": {
+      "passed": 172,
+      "files": 10
+    },
+    "fullProductionBrowserSuite": {
+      "passed": 41,
+      "durationMinutes": 14.4
+    },
+    "finalOverhaulRegression": {
+      "passed": 3,
+      "durationMinutes": 3.8
+    },
+    "finalReleaseFrameCaptureRun": {
+      "passed": 1,
+      "durationMinutes": 2.1
+    },
+    "distinctBrowserScenariosWithPassingEvidence": 42,
+    "nativeAudio": {
+      "passed": 20,
+      "engine": "Chromium 156.0.8078.4",
+      "hardwareListeningVerified": false
+    },
+    "productionBuildAndStartup": "passed through managed production browser runs",
+    "unchangedFromBaseline": [
+      "src/exam/engine.ts",
+      "src/exam/storage.ts",
+      "src/battle/",
+      "server/",
+      "shared/"
+    ],
+    "graphics": [
+      "WebGL initialization failure",
+      "runtime context loss",
+      "manual lightweight mode",
+      "fresh 3D retry",
+      "reduced-motion stillness"
+    ]
+  },
+  "resolvedAutomationIssues": [
+    "Scrolled drawing surfaces into view before pointer strokes.",
+    "Handled the reduced-motion auto-awakening race by requiring the resulting battle heading if Skip disappears."
+  ],
+  "limitations": [
+    "Hardware FPS and battery/thermal behavior were not measured.",
+    "Human speaker listening and learner acceptance remain unverified.",
+    "Live AI preparation and Classic durable reload persistence remain preexisting unavailable features.",
+    "Vite retains its successful-build warning for chunks above 500 kB."
+  ],
+  "evidence": [
+    {
+      "path": "devpost/evidence/boss-1366x768.png",
+      "bytes": 832604,
+      "sha256": "026866e752c08209eada7d50863fb118a4b39a69f856a777707fb3e0b9b11643",
+      "source": "Actual Chromium gameplay with pointer-drawn creatures; no injected grading state."
+    },
+    {
+      "path": "devpost/evidence/boss-1600x900.png",
+      "bytes": 1036318,
+      "sha256": "5781548535df878a5c9d9f56bc863a9ed976915a01232679f42af74cb23724e5",
+      "source": "Actual Chromium gameplay with pointer-drawn creatures; no injected grading state."
+    },
+    {
+      "path": "devpost/evidence/boss-1920x1080.png",
+      "bytes": 1443412,
+      "sha256": "336c894f8d7c9c143b5a9920f08c9172662d1eadb4f42338f1e1c88a1e890b93",
+      "source": "Actual Chromium gameplay with pointer-drawn creatures; no injected grading state."
+    },
+    {
+      "path": "devpost/evidence/boss-390x844.png",
+      "bytes": 382586,
+      "sha256": "b0c9020e98169e0d67552db5410938786690519df091f40fd830d28e2a49e400",
+      "source": "Actual Chromium gameplay with pointer-drawn creatures; no injected grading state."
+    },
+    {
+      "path": "devpost/evidence/boss-beam-release.png",
+      "bytes": 453641,
+      "sha256": "f6036e5e70ff758ecb036125fa326200a54440b7fb23738447c1fc5269f0fb78",
+      "source": "Actual Chromium gameplay with pointer-drawn creatures; no injected grading state."
+    },
+    {
+      "path": "devpost/evidence/boss-beam.png",
+      "bytes": 1058417,
+      "sha256": "0efb31ac9eb7e25101c15bfb531d8d72d9fe009fc8b2f2c476c8a5d542542733",
+      "source": "Actual Chromium gameplay with pointer-drawn creatures; no injected grading state."
+    },
+    {
+      "path": "devpost/evidence/boss-fallback-mobile.png",
+      "bytes": 318202,
+      "sha256": "f96dd9c3325381ed4d3299934e3b071c12709940fb791b8283954fb2f9b9c62d",
+      "source": "Actual Chromium gameplay with pointer-drawn creatures; no injected grading state."
+    },
+    {
+      "path": "devpost/evidence/boss-final-release.png",
+      "bytes": 366472,
+      "sha256": "4719b1174b097e391a8e3d8b5eb72178ef573a3374f9b032bf8f3dbaca8062b8",
+      "source": "Actual Chromium gameplay with pointer-drawn creatures; no injected grading state."
+    },
+    {
+      "path": "devpost/evidence/boss-final.png",
+      "bytes": 1006778,
+      "sha256": "0e467add29002d3735c3af270dc36617b80454594928db1b67238f6c7ff674de",
+      "source": "Actual Chromium gameplay with pointer-drawn creatures; no injected grading state."
+    },
+    {
+      "path": "devpost/evidence/boss-ink-dissolution.png",
+      "bytes": 434301,
+      "sha256": "a41db16073b19d9e8dd71575fcf6b21c77688c9fdbefb2e022db988056daf5ba",
+      "source": "Actual Chromium gameplay with pointer-drawn creatures; no injected grading state."
+    },
+    {
+      "path": "devpost/evidence/boss-perfect-ending.png",
+      "bytes": 1058586,
+      "sha256": "8274eca86faadde78367152709185708cc7abc817b8a600c51b728f42e03aac9",
+      "source": "Actual Chromium gameplay with pointer-drawn creatures; no injected grading state."
+    },
+    {
+      "path": "devpost/evidence/boss-recognizable-creature.png",
+      "bytes": 1022910,
+      "sha256": "11809bbfe2469341d0f04ab30b2a901d4ca8b8cc7434ca765bc0a434ead4d0a8",
+      "source": "Actual Chromium gameplay with pointer-drawn creatures; no injected grading state."
+    },
+    {
+      "path": "devpost/evidence/boss-recognizable-rig.png",
+      "bytes": 1405144,
+      "sha256": "be4e9c1469d16a5e66ff7ea3621c9090cea9a65f6984483c64515ee36f40abd5",
+      "source": "Actual Chromium gameplay with pointer-drawn creatures; no injected grading state."
+    },
+    {
+      "path": "devpost/evidence/boss-slam-release.png",
+      "bytes": 454651,
+      "sha256": "4a7896241a7c8178381093f8da554cfd1d4f5a1cee444b4b571488a0ae2aeb10",
+      "source": "Actual Chromium gameplay with pointer-drawn creatures; no injected grading state."
+    },
+    {
+      "path": "devpost/evidence/boss-slam.png",
+      "bytes": 1059721,
+      "sha256": "65479402f459f292e9b6432c2aceefc8bd48b7cff77602cd7c6656f558c68a24",
+      "source": "Actual Chromium gameplay with pointer-drawn creatures; no injected grading state."
+    },
+    {
+      "path": "devpost/evidence/boss-storm-release.png",
+      "bytes": 442882,
+      "sha256": "a15a4a200f7122f02820c793cfb669362c278aa7e84fc8f2fc81db810f65366a",
+      "source": "Actual Chromium gameplay with pointer-drawn creatures; no injected grading state."
+    },
+    {
+      "path": "devpost/evidence/boss-storm.png",
+      "bytes": 1057775,
+      "sha256": "5633bd5650d1baee42df555971a23c0cde040403a4edc36344cb1a1326675086",
+      "source": "Actual Chromium gameplay with pointer-drawn creatures; no injected grading state."
+    },
+    {
+      "path": "devpost/evidence/boss-sweep-release.png",
+      "bytes": 398973,
+      "sha256": "e715f038de4d42d3fe8e37eb4ad58db714472aa39b816844835555c6da478ad5",
+      "source": "Actual Chromium gameplay with pointer-drawn creatures; no injected grading state."
+    },
+    {
+      "path": "devpost/evidence/boss-sweep.png",
+      "bytes": 1057296,
+      "sha256": "26037f44b038e671525167caadf1dc6898d161f3e60bdc0ae6365954e7281c58",
+      "source": "Actual Chromium gameplay with pointer-drawn creatures; no injected grading state."
+    }
+  ]
+}

@@ -26,3 +26,14 @@ Select a genuine selectable-text PDF, or PNG/JPEG/WEBP page images (multiple sup
 ## Review checkpoints still owned by the learner
 
 Try a new paper/drawing, one correct answer, one mistake, reload/continue, failure or victory and its report. Assess drawing recognition, readable attacks, question clarity, sound, motion and extracted-paper correctness. Agent screenshots and tests do not constitute personal feedback or release approval. See the saved official checklist; no pending learner checkbox is automatically approved.
+
+## Cinematic overhaul route
+
+1. Enter Exam Siege, choose Quick Battle, confirm the curated key and draw an irregular scribble or a recognizable creature. Prepare and optionally mark shoulder/hand anchors.
+2. Awaken and enter the arena. Resize or use the top-right fullscreen control: the scene remains 16:9 and questions remain available.
+3. Answer every Quick Battle question incorrectly (B, A, A, A, B). The real engine emits Abyssal Slam, Shard Tempest, Fractured Beam, Inkborn's Wrath and The Last Reckoning, in order. Potential is 90%, 70%, 60%, 40%, then 0%. The ending report records five wrong answers and no additional damage.
+4. For a perfect ending, play a fresh paper with A, D, C, B, A. Correct answers strike the titan; all five earned answers trigger ink dissolution. Sovereign Sigil is available after securing the actual pass target and remains cosmetic.
+5. Use Lightweight graphics and Retry 3D graphics; select reduced motion or mute in Settings. Reload and Resume saved examination to check the actual drawing and committed marks.
+6. Classic Battle remains on Sample Battle. Check direct crystal selection after resize and the existing follow-up/recovery route.
+
+Automated screenshots and exact verification outcomes are recorded in `devpost/cinematic-boss-overhaul.md`; human hardware/audio assessment remains separate.
