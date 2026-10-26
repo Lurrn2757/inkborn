@@ -1,12 +1,115 @@
-# INKBORN
+<!-- INKBORN: gameplay imagery linked to files already in this repository -->
+<div align="center">
 
-INKBORN now includes **Exam Siege**: review an uploaded examination or curated sample, confirm its answer key, draw a creature and confront that drawing inside a real 3D crystal titan. Correct answers fracture armor; mistakes reduce the mathematically maximum attainable grade. Complete a passing paper to defeat the boss, or review an exact Examination Autopsy when passing becomes impossible. Classic Battle remains available with its original retry-to-learn encounters.
+<a href="https://fastidious-pasca-e5048a.netlify.app/"><img src="devpost/evidence/boss-1920x1080.png" alt="Cinematic 1920×1080 battle" width="100%" /></a>
 
-Quick Battle has five weighted questions; full arithmetic samples contain 30, 50 and 100 questions. Supported uploads are selectable-text PDFs and PNG/JPEG/WEBP images, with local extraction/OCR and an editable review. There is no automatic authoritative answer generation. No examination paper is publicly uploaded or sent to an AI provider. Personal-note AI preparation remains unavailable at `/api/lessons`; no API key is needed for the delivered modes.
+# I N K B O R N
 
-The cinematic overhaul adds fixed 1920 × 1080 composition, articulated crystal limbs, five boss attacks, shader ink dissolution, a deeper Three.js chamber and fullscreen battle controls. Verification passed: strict typechecking, lint, 172 unit/integration tests, 42 distinct browser scenarios across full/targeted runs, and production build. Command results and running screenshots are recorded in [cinematic overhaul verification](devpost/cinematic-boss-overhaul.md). Prior mechanical verification included lint, strict typechecking, 162 unit/integration tests, 39 distinct production-browser scenarios across full/targeted runs, and production build/startup. The owner confirmed firsthand gameplay on **27 October 2026**; see the [playtest record](docs/playtest-report.md). Detailed scenario feedback and explicit final release readiness remain unrecorded. See [Exam Siege evidence and limitations](devpost/exam-siege.md), [actual architecture](docs/architecture.md), and [repeatable demonstration](docs/demo-checklist.md).
+### THE MONSTER MADE OF YOUR MISTAKES
 
-## Run locally
+*Your knowledge is the weapon. Your mistakes are the monster.*
+
+**Draw a creature. Make it live. Fight through what you don't know.**
+
+<a href="https://fastidious-pasca-e5048a.netlify.app/"><img alt="Play INKBORN" src="https://img.shields.io/badge/PLAY_THE_GAME-C9A569?style=for-the-badge&labelColor=18151D" /></a>
+<a href="#-the-bestiary--screenshot-gallery"><img alt="Screenshot gallery" src="https://img.shields.io/badge/EXPLORE_THE_BESTIARY-735B82?style=for-the-badge&labelColor=18151D" /></a>
+<a href="#-run-it-locally"><img alt="Run locally" src="https://img.shields.io/badge/RUN_LOCALLY-428B7E?style=for-the-badge&labelColor=18151D" /></a>
+
+<br/><br/>
+
+<img alt="React" src="https://img.shields.io/badge/React-19-28232e?logo=react&logoColor=61DAFB"/>
+<img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-28232e?logo=typescript&logoColor=3178C6"/>
+<img alt="Three.js" src="https://img.shields.io/badge/Three.js-Crystal_Titan-28232e?logo=threedotjs&logoColor=white"/>
+<img alt="PixiJS" src="https://img.shields.io/badge/PixiJS-Classic_Battle-28232e"/>
+<img alt="Code license MIT" src="https://img.shields.io/badge/Code-MIT-28232e"/>
+
+<sub>Created with the Devpost Learn Skill Pack · Original dark-fantasy study game · Playable curated samples</sub>
+
+</div>
+
+---
+
+## ✦ The premise
+
+**INKBORN** turns study and exam practice into a cinematic boss battle. Draw your monster, give it life, then let your knowledge decide how the fight ends. It's not a generic quiz with a health bar: your performance changes the creature and determines your outcome.
+
+| **EXAM SIEGE — THE CRYSTAL TITAN** | **CLASSIC BATTLE — LIVING INK** |
+| :--- | :--- |
+| Battle a crystalline titan inside a 3D ritual chamber. Exam marks govern your survival. | Confront three concept vulnerabilities attached to your own drawing. |
+| Five-question Quick Battle; 30, 50 and 100-question curated samples; paper extraction and key review. | Source-linked feedback, different follow-up questions, visible corruption and recovery. |
+| Correct answers strike the Titan. Wrong ones reduce maximum achievable exam marks. | Break crystals by demonstrating understanding; unresolved topics remain visible. |
+| Examine marks lost and revision priorities after the battle. | Finish with a meaningful concept-by-concept record. |
+
+> **Truth in grading:** the game distinguishes *earned marks* from *maximum attainable marks*. A user-provided or reviewed answer key is required for graded imported papers. No invented AI grading authority.
+
+## ◈ The Bestiary · Screenshot Gallery
+
+These are actual captured project screens stored in this repo, not unrelated concept art.
+
+<table>
+<tr><td align="center" width="50%"><img src="devpost/evidence/boss-1920x1080.png" alt="Cinematic 1920×1080 battle" width="100%" /><br/><sub>Cinematic 1920×1080 battle</sub></td><td align="center" width="50%"><img src="devpost/evidence/boss-recognizable-creature.png" alt="Your recognizable ink creature" width="100%" /><br/><sub>Your recognizable ink creature</sub></td></tr>
+<tr><td align="center" width="50%"><img src="devpost/evidence/boss-recognizable-rig.png" alt="Optional articulated rigging" width="100%" /><br/><sub>Optional articulated rigging</sub></td><td align="center" width="50%"><img src="devpost/evidence/exam-titan.png" alt="Exam Siege: the Crystal Titan" width="100%" /><br/><sub>Exam Siege: the Crystal Titan</sub></td></tr>
+<tr><td align="center" width="50%"><img src="devpost/evidence/boss-slam.png" alt="Abyssal Slam" width="100%" /><br/><sub>Abyssal Slam</sub></td><td align="center" width="50%"><img src="devpost/evidence/boss-storm.png" alt="Shard Tempest" width="100%" /><br/><sub>Shard Tempest</sub></td></tr>
+<tr><td align="center" width="50%"><img src="devpost/evidence/boss-beam.png" alt="Fractured Beam" width="100%" /><br/><sub>Fractured Beam</sub></td><td align="center" width="50%"><img src="devpost/evidence/boss-sweep.png" alt="Fracture Sweep" width="100%" /><br/><sub>Fracture Sweep</sub></td></tr>
+</table>
+
+<details>
+<summary><b>EXPAND THE FULL BOSS & ENVIRONMENT GALLERY · 16 MORE CAPTURES</b></summary>
+
+<table>
+<tr><td align="center" width="50%"><img src="devpost/evidence/boss-final.png" alt="The Last Reckoning" width="100%" /><br/><sub>The Last Reckoning</sub></td><td align="center" width="50%"><img src="devpost/evidence/boss-ink-dissolution.png" alt="Ink dissolution" width="100%" /><br/><sub>Ink dissolution</sub></td></tr>
+<tr><td align="center" width="50%"><img src="devpost/evidence/boss-perfect-ending.png" alt="Victory" width="100%" /><br/><sub>Victory</sub></td><td align="center" width="50%"><img src="devpost/evidence/exam-ocr-review.png" alt="Exam paper extraction" width="100%" /><br/><sub>Exam paper extraction</sub></td></tr>
+<tr><td align="center" width="50%"><img src="devpost/evidence/exam-autopsy.png" alt="Examination Autopsy" width="100%" /><br/><sub>Examination Autopsy</sub></td><td align="center" width="50%"><img src="devpost/evidence/three-chamber.png" alt="Three.js chamber" width="100%" /><br/><sub>Three.js chamber</sub></td></tr>
+<tr><td align="center" width="50%"><img src="devpost/evidence/pixi-chamber.png" alt="PixiJS chamber" width="100%" /><br/><sub>PixiJS chamber</sub></td><td align="center" width="50%"><img src="devpost/evidence/boss-1366x768.png" alt="Laptop layout" width="100%" /><br/><sub>Laptop layout</sub></td></tr>
+<tr><td align="center" width="50%"><img src="devpost/evidence/boss-1600x900.png" alt="Widescreen layout" width="100%" /><br/><sub>Widescreen layout</sub></td><td align="center" width="50%"><img src="devpost/evidence/boss-390x844.png" alt="Mobile layout" width="100%" /><br/><sub>Mobile layout</sub></td></tr>
+<tr><td align="center" width="50%"><img src="devpost/evidence/boss-fallback-mobile.png" alt="Fallback renderer" width="100%" /><br/><sub>Fallback renderer</sub></td><td align="center" width="50%"><img src="devpost/evidence/boss-beam-release.png" alt="Beam impact" width="100%" /><br/><sub>Beam impact</sub></td></tr>
+<tr><td align="center" width="50%"><img src="devpost/evidence/boss-final-release.png" alt="Final strike" width="100%" /><br/><sub>Final strike</sub></td><td align="center" width="50%"><img src="devpost/evidence/boss-slam-release.png" alt="Slam impact" width="100%" /><br/><sub>Slam impact</sub></td></tr>
+<tr><td align="center" width="50%"><img src="devpost/evidence/boss-storm-release.png" alt="Shard impact" width="100%" /><br/><sub>Shard impact</sub></td><td align="center" width="50%"><img src="devpost/evidence/boss-sweep-release.png" alt="Sweep impact" width="100%" /><br/><sub>Sweep impact</sub></td></tr>
+</table>
+
+</details>
+
+<details>
+<summary><b>ARENA DEVELOPMENT EVIDENCE · 4 NETWORKING CAPTURES</b></summary>
+
+These images document development/test screens. The public Netlify frontend **does not** offer working live multiplayer.
+
+<table>
+<tr><td align="center" width="50%"><img src="devpost/evidence/arena-private-room.png" alt="Private lobby test" width="100%" /><br/><sub>Private lobby test</sub></td><td align="center" width="50%"><img src="devpost/evidence/arena-authoritative-round.png" alt="Server-authoritative round" width="100%" /><br/><sub>Server-authoritative round</sub></td></tr>
+<tr><td align="center" width="50%"><img src="devpost/evidence/arena-mobile-question.png" alt="Mobile arena question" width="100%" /><br/><sub>Mobile arena question</sub></td><td align="center" width="50%"><img src="devpost/evidence/arena-duel-result.png" alt="PvP result test" width="100%" /><br/><sub>PvP result test</sub></td></tr>
+</table>
+
+</details>
+
+## ⚔ The game, not just the interface
+
+- **Living drawing:** recognizable ink, breathing, recoil and optional limb anchors.
+- **Five cinematic boss attacks:** slams, shard storms, sweeps, beams and the last reckoning.
+- **Graded stakes:** wrong answers lower the maximum attainable score; correct answers damage the boss.
+- **Accessible play:** keyboard and reduced-motion support, scaled 16:9 composition and graphics fallback.
+- **Meaningful aftermath:** an Examination Autopsy tells you which marks you lost and what to review.
+
+<div align="center">
+
+<img src="devpost/evidence/exam-autopsy.png" alt="INKBORN Examination Autopsy showing marks and feedback" width="100%" />
+
+<sub>THE EXAMINATION AUTOPSY · THE BATTLE ENDS, THE LEARNING CONTINUES</sub>
+
+</div>
+
+## 🎬 Footage
+
+Real screen recordings were captured during development. They are **not included in this Git branch yet**, so I haven't linked to nonexistent video files. The gallery above is immediately viewable. [Play the live frontend](https://fastidious-pasca-e5048a.netlify.app/) to see the game in motion.
+
+The public deployment is frontend-only. It does not host real online matchmaking or a live AI lesson-generation backend.
+
+## 📜 Devpost Learn
+
+The real [scope](devpost/scope.md), [product requirements](devpost/prd.md), [technical specification](devpost/spec.md) and [build checklist](devpost/checklist.md) are public. For engine testing and screenshots, see the [cinematic implementation report](devpost/cinematic-boss-overhaul.md).
+
+---
+
+## 🧪 Run it locally
 
 Use Node.js 24 LTS or newer and npm. This workspace uses Node 26.10.0 and npm 12.1.0. Install from the lockfile:
 
