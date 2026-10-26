@@ -1,5 +1,15 @@
 /* INKBORN creative asset — see ASSETS-LICENSE.md */
 
+export const CHAMBER_PERFORMANCE = {
+  awakeningSeconds: 6.2,
+  endingSeconds: 3,
+  idleBob: 5,
+  idleBreath: .012,
+  idleTilt: .012,
+  hitRecoil: 15,
+  attackTravel: 42,
+} as const;
+
 /** Original engraved alchemist's chamber. Coordinates describe a 1000 × 760 composition. */
 export function paintChamber(ctx: CanvasRenderingContext2D, width: number, height: number): void {
   ctx.save();
@@ -119,4 +129,17 @@ export function paintChamber(ctx: CanvasRenderingContext2D, width: number, heigh
   vignette.addColorStop(1, '#09080eb3');
   ctx.fillStyle = vignette; ctx.fillRect(0, 0, 1000, 760);
   ctx.restore();
+}
+
+/** The three released concepts close the summoning seal; the creature itself remains source ink. */
+export function evaluateReleaseSeal(age: number, reducedMotion: boolean, style: 'dominant' | 'scarred' = 'dominant') {
+  const progress = Math.max(0, Math.min(1, age / CHAMBER_PERFORMANCE.endingSeconds));
+  const alpha = Math.sin(progress * Math.PI) * (style === 'dominant' ? .85 : .6);
+  const radius = .55 + (reducedMotion ? 0 : progress * .45);
+  const fragments = reducedMotion ? [] : Array.from({ length: style === 'dominant' ? 54 : 36 }, (_, index) => {
+    const angle = index * 2.399963;
+    const travel = .48 + progress * (.4 + index % 5 * .07);
+    return { x: Math.cos(angle) * travel, y: Math.sin(angle) * travel - progress * .17, color: index % 4 === 0 ? 0x8ac8bd : 0xe2c38c };
+  });
+  return { alpha, radius, fragments };
 }

@@ -1,4 +1,5 @@
 import type { Lesson } from '../../shared/schema.js';
+import { ritualIntegrity, RITUAL_SEALS } from './ritual.js';
 import { getCurrentQuestion, isTerminalOutcome, type BattleState, type ConceptOutcome } from './reducer.js';
 
 /** Semantic checks for tests and, later, validating a restored battle snapshot. */
@@ -12,6 +13,9 @@ export function getBattleInvariantErrors(state: BattleState, lesson: Lesson): st
     errors.push('Outcome identities must match the lesson concepts exactly.');
   }
   const questionIds = new Set<string>();
+  const exhausted = ritualIntegrity(state) === 0;
+  if (state.answers.filter(answer => !answer.correct).length > RITUAL_SEALS) errors.push('An exhausted ritual cannot take further damage.');
+  if (exhausted && (state.phase === 'choosing' || state.phase === 'question')) errors.push('An exhausted ritual must retreat after feedback.');
   for (const [index, answer] of state.answers.entries()) {
     const concept = lesson.concepts.find((candidate) => candidate.id === answer.conceptId);
     const question = concept?.[answer.kind];
@@ -31,6 +35,7 @@ export function getBattleInvariantErrors(state: BattleState, lesson: Lesson): st
     const followup = answers.find((answer) => answer.kind === 'followup');
     let expected: ConceptOutcome = 'stable';
     if (initial) expected = initial.correct ? 'first' : followup ? followup.correct ? 'corrected' : 'unresolved' : 'corrupted';
+    if (exhausted && (state.phase === 'ending' || state.phase === 'results') && !isTerminalOutcome(expected)) expected = 'unresolved';
     if (answers.length > 2 || (followup && (!initial || initial.correct || followup.sequence < initial.sequence))) {
       errors.push('A follow-up requires one preceding initial mistake and at most two answers per concept.');
     }

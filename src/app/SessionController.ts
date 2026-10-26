@@ -15,7 +15,7 @@ export class SessionController {
   private state: AppSnapshot = {
     screen: 'title', resumeScreen: null, lesson: null, drawing: emptyDrawing(), sprite: null,
     battle: null, error: null, preparing: false, presenting: false,
-    settings: { muted: false, volume: 0.3, motion: 'system' },
+    settings: { muted: false, volume: 0.55, motion: 'system' },
   };
   private listeners = new Set<() => void>();
   private epoch = 0;
@@ -36,7 +36,7 @@ export class SessionController {
   chooseLesson = (lesson: Lesson) => this.update({ lesson, sprite: null, battle: null, error: null });
   setDrawing = (drawing: DrawingDocument) => this.update({ drawing, sprite: null, error: null });
   setSprite = (sprite: CreatureAsset) => this.update({ sprite });
-  setSettings = (settings: Partial<Settings>) => this.update({ settings: { ...this.state.settings, ...settings } });
+  setSettings = (settings: Partial<Settings>) => this.update({ settings: { ...this.state.settings, ...settings, volume: Math.max(0, Math.min(1, settings.volume ?? this.state.settings.volume)) } });
   toTitle = () => { if (this.state.screen !== 'title') this.update({ screen: 'title', resumeScreen: this.state.screen === 'results' ? null : this.state.screen }); };
   resume = () => this.update({ screen: this.state.resumeScreen ?? 'notes', error: null });
   prepare = async () => {
@@ -72,7 +72,7 @@ export class SessionController {
     if (this.visualTimer) clearTimeout(this.visualTimer);
     this.visualTimer = setTimeout(() => {
       if (this.state.battle?.event?.id === eventId) this.update({ presenting: false });
-    }, this.state.settings.motion === 'reduced' ? 200 : 1100);
+    }, (this.state.settings.motion === 'reduced' || this.state.settings.motion === 'system' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) ? 200 : next.event?.type === 'recovery' ? 2200 : next.event?.type === 'corrupt' || next.event?.type === 'unresolved' ? 1900 : 1400);
   };
   continueBattle = () => {
     const { battle, lesson } = this.state;

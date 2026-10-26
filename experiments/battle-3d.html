@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>INKBORN · chamber study</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#100f15;color:#e0d4b9;font:14px system-ui}main{max-width:1140px;margin:32px auto;padding:0 24px}h1{font:40px Georgia;margin-bottom:12px}p{max-width:750px;line-height:1.6;color:#bbae96}nav{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin:24px 0}select,button{font:inherit;color:#e0d4b9;background:#24212b;border:1px solid #84704d;padding:9px}label{display:flex;gap:8px;align-items:center}#arena{width:min(100%,740px);height:660px;border:1px solid #796342;overflow:hidden}#status{white-space:pre-wrap;font:12px monospace}a{color:#90d2c3}@media(max-width:600px){#arena{height:430px}}
+</style></head>
+<body><main><h1>Chamber study / 2.5D</h1><p>A contained rendering experiment. The chamber is 3D; the creature is a transparent drawing. These repeatable animation snapshots use the same presentation adapter as the game. <a href="/?renderer=three">Try with your own drawing in the sample battle →</a></p>
+<nav><label>Renderer <select id="renderer"><option value="three">Three.js prototype</option><option value="pixi">Current PixiJS</option><option value="canvas">Canvas fallback</option></select></label>
+<label>Scene <select id="beat"><option>battle</option><option>awakening</option><option>hit</option><option>corrupt</option><option>recovery</option><option>victory</option><option>retreat</option></select></label>
+<label><input id="reduced" type="checkbox">Reduced motion</label><button id="replay">Replay</button></nav>
+<div id="arena"></div><p id="status" role="status">Loading study…</p></main><script type="module" src="./battle-3d.ts"></script></body></html>

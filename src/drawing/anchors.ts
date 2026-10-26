@@ -1,12 +1,17 @@
 import type { Anchor, OccupancyMask } from './types.js';
 
 export function occupiedPoints(mask: OccupancyMask): Array<{ x: number; y: number }> {
-  return mask.cells.map(cell => ({ x: (cell % mask.width + 0.5) / mask.width, y: (Math.floor(cell / mask.width) + 0.5) / mask.height }));
+  return mask.cells.map((cell, index) => ({
+    cell,
+    point: mask.points?.[index] ?? { x: (cell % mask.width + 0.5) / mask.width, y: (Math.floor(cell / mask.width) + 0.5) / mask.height },
+  })).sort((first, second) => first.cell - second.cell).map(({ point }) => point);
 }
 export function nearestInk(mask: OccupancyMask, x: number, y: number): { x: number; y: number } {
-  let nearest = { x: 0.5, y: 0.5 };
+  const points = occupiedPoints(mask);
+  let nearest = points[0];
+  if (!nearest) throw new Error('Crystal attachments require visible ink.');
   let distance = Infinity;
-  for (const point of occupiedPoints(mask)) {
+  for (const point of points) {
     const next = (point.x - x) ** 2 + (point.y - y) ** 2;
     if (next < distance) { nearest = point; distance = next; }
   }
@@ -14,6 +19,7 @@ export function nearestInk(mask: OccupancyMask, x: number, y: number): { x: numb
 }
 export function placeAnchors(mask: OccupancyMask, conceptIds: string[]): Anchor[] {
   const points = occupiedPoints(mask);
+  if (points.length === 0) throw new Error('A creature needs visible ink before crystals can be attached.');
   const targets = [{ x: 0.27, y: 0.28 }, { x: 0.73, y: 0.28 }, { x: 0.5, y: 0.7 }];
   const anchors: Anchor[] = [];
   conceptIds.forEach((conceptId, index) => {

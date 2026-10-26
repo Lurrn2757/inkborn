@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-26",
+  "status": "mechanically-verified-firsthand-review-pending",
+  "unitIntegrationTests": 162,
+  "uniqueProductionBrowserScenarios": 39,
+  "classicScenarios": 23,
+  "examSiegeScenarios": 16,
+  "browserExecution": "Full and targeted runs with isolated artifact folders; not one clean combined run",
+  "automatedDemoSeconds": 33.88,
+  "demoIsHumanRecording": false,
+  "fullPaperUiQuestionsCompleted": 50,
+  "productionUrl": "http://127.0.0.1:4173",
+  "productionBuild": "passed",
+  "lint": "passed",
+  "typecheck": "passed",
+  "productionDependencyAuditFindings": 0,
+  "verifiedUploadPaths": [
+    "two-page selectable-text PDF",
+    "fresh printed English PNG OCR",
+    "unavailable OCR assets recovery"
+  ],
+  "notIndependentlyVerified": [
+    "JPEG and WEBP OCR fixtures",
+    "hardware frame rate and thermal behavior",
+    "human sound quality",
+    "Safari/Firefox full journey",
+    "learner acceptance",
+    "owner video rehearsal"
+  ],
+  "notImplemented": [
+    "scanned-PDF OCR",
+    "reliable handwriting or equation recognition",
+    "negative marking or partial credit",
+    "essay or semantic equivalence grading",
+    "Classic durable reload",
+    "personal-note AI lesson generation"
+  ],
+  "externalPublication": false,
+  "learnerReviewApproved": false,
+  "monsterSpecialIncrement": {
+    "newScenariosPassed": 4,
+    "classicBlankDistinctDrawingRegression": "passed",
+    "presets": [
+      "The Cathedral Wraith",
+      "The Thorn Devourer",
+      "The Abyssal Oracle"
+    ],
+    "playerSpecial": "Sovereign Sigil",
+    "failureSpecial": "Eclipse Judgment"
+  }
+}

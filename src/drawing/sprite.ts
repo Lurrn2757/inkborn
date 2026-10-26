@@ -18,6 +18,27 @@ function pixelHash(data: Uint8ClampedArray): string {
   for (const byte of data) { hash ^= byte; hash = Math.imul(hash, 16777619); }
   return (hash >>> 0).toString(16).padStart(8, '0');
 }
+
+/** Sample actual alpha pixels rather than assuming a coarse cell's center contains ink. */
+export function createOccupancyMask(data: Uint8ClampedArray, width: number, height: number, size = 80): OccupancyMask {
+  const samples = new Map<number, { x: number; y: number; distance: number }>();
+  for (let y = 0; y < height; y += 1) {
+    for (let x = 0; x < width; x += 1) {
+      if ((data[(y * width + x) * 4 + 3] ?? 0) === 0) continue;
+      const normalizedX = (x + 0.5) / width;
+      const normalizedY = (y + 0.5) / height;
+      const cellX = Math.min(size - 1, Math.floor(normalizedX * size));
+      const cellY = Math.min(size - 1, Math.floor(normalizedY * size));
+      const cell = cellY * size + cellX;
+      const distance = (normalizedX - (cellX + 0.5) / size) ** 2 + (normalizedY - (cellY + 0.5) / size) ** 2;
+      const previous = samples.get(cell);
+      if (!previous || distance < previous.distance) samples.set(cell, { x: normalizedX, y: normalizedY, distance });
+    }
+  }
+  const entries = [...samples.entries()].sort(([first], [second]) => first - second);
+  return { width: size, height: size, cells: entries.map(([cell]) => cell), points: entries.map(([, point]) => ({ x: point.x, y: point.y })) };
+}
+
 export async function prepareSprite(drawing: DrawingDocument, conceptIds: string[]): Promise<CreatureAsset> {
   const source = document.createElement('canvas');
   source.width = DRAWING_WIDTH; source.height = DRAWING_HEIGHT;
@@ -33,17 +54,11 @@ export async function prepareSprite(drawing: DrawingDocument, conceptIds: string
   const cropped = canvas.getContext('2d');
   if (!cropped) throw new Error('Your drawing could not be prepared. Please try again.');
   cropped.drawImage(source, bounds.x, bounds.y, bounds.width, bounds.height, padding * scale, padding * scale, bounds.width * scale, bounds.height * scale);
-  const maskCanvas = document.createElement('canvas');
-  maskCanvas.width = 80; maskCanvas.height = 80;
-  const maskContext = maskCanvas.getContext('2d', { willReadFrequently: true });
-  if (!maskContext) throw new Error('The creature silhouette could not be read.');
-  maskContext.drawImage(canvas, 0, 0, 80, 80);
-  const maskPixels = maskContext.getImageData(0, 0, 80, 80).data;
-  const mask: OccupancyMask = { width: 80, height: 80, cells: [] };
-  for (let index = 0; index < 80 * 80; index += 1) if ((maskPixels[index * 4 + 3] ?? 0) > 0) mask.cells.push(index);
+  const pixels = cropped.getImageData(0, 0, canvas.width, canvas.height).data;
+  const mask = createOccupancyMask(pixels, canvas.width, canvas.height);
   return {
     id: crypto.randomUUID(), dataUrl: canvas.toDataURL('image/png'), width: canvas.width, height: canvas.height,
-    hash: pixelHash(cropped.getImageData(0, 0, canvas.width, canvas.height).data),
+    hash: pixelHash(pixels),
     mask, anchors: placeAnchors(mask, conceptIds), bounds,
   };
 }

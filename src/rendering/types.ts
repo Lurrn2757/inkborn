@@ -10,13 +10,17 @@ export interface ArenaViewProps {
   event: { id: string; type: 'hit' | 'corrupt' | 'recovery' | 'unresolved' | 'victory' | 'retreat'; conceptId: string | null } | null;
   scene: 'preview' | 'awakening' | 'battle' | 'victory' | 'retreat';
   reducedMotion: boolean;
+  ritualIntegrity?: number;
+  victoryStyle?: 'dominant' | 'scarred';
   onSelect: (id: string) => void;
+  onSceneReady?: () => void;
 }
 
 export interface ArenaFrame {
   time: number;
   eventAge: number;
   sceneAge: number;
+  selectionAge?: number;
 }
 
 export interface ArenaRenderer {

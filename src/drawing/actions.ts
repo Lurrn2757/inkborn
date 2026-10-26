@@ -1,7 +1,27 @@
 import { DRAWING_HEIGHT, DRAWING_WIDTH, type DrawingAction, type DrawingDocument, type Stroke } from './types.js';
 
+export const MAX_HISTORY_ACTIONS = 100;
+export const MAX_HISTORY_POINTS = 50_000;
+export const MAX_STROKE_POINTS = 2_048;
+
+/** Consecutive segments share their boundary point, preserving every connecting line. */
+export function splitStroke(stroke: Stroke, limit = MAX_STROKE_POINTS): Stroke[] {
+  if (!Number.isInteger(limit) || limit < 2) throw new Error('Stroke segments need at least two points.');
+  if (stroke.points.length === 0) return [];
+  const segments: Stroke[] = [];
+  let start = 0;
+  while (start < stroke.points.length) {
+    const points = stroke.points.slice(start, start + limit);
+    segments.push({ ...stroke, points });
+    if (start + limit >= stroke.points.length) break;
+    start += limit - 1;
+  }
+  return segments;
+}
+
 export function appendAction(document: DrawingDocument, action: DrawingAction): DrawingDocument {
-  const actions = [...document.actions.slice(0, document.cursor), action];
+  const appended = action.kind === 'stroke' ? splitStroke(action) : [action];
+  const actions = [...document.actions.slice(0, document.cursor), ...appended];
   return { ...document, actions, cursor: actions.length };
 }
 export function undo(document: DrawingDocument): DrawingDocument {
@@ -51,25 +71,44 @@ export async function replayDrawing(context: CanvasRenderingContext2D, drawing: 
     else paintStroke(context, action);
   }
 }
-export async function compactDrawing(drawing: DrawingDocument): Promise<DrawingDocument> {
+/** Return an exact prefix to flatten; no action or point is discarded. */
+export function planCompaction(drawing: DrawingDocument): { flatten: DrawingAction[]; retain: DrawingAction[] } {
   const active = drawing.actions.slice(0, drawing.cursor);
   let retainedPoints = active.reduce((sum, action) => sum + (action.kind === 'stroke' ? action.points.length : 0), 0);
-  let flattenCount = Math.max(0, active.length - 100);
+  let flattenCount = Math.max(0, active.length - MAX_HISTORY_ACTIONS);
   for (let index = 0; index < flattenCount; index += 1) {
     const action = active[index];
     retainedPoints -= action?.kind === 'stroke' ? action.points.length : 0;
   }
-  while (retainedPoints > 50_000 && flattenCount < active.length) {
+  while (retainedPoints > MAX_HISTORY_POINTS && flattenCount < active.length) {
     const action = active[flattenCount++];
     retainedPoints -= action?.kind === 'stroke' ? action.points.length : 0;
   }
-  if (flattenCount === 0) return drawing;
+  return { flatten: active.slice(0, flattenCount), retain: active.slice(flattenCount) };
+}
+
+/** Safely apply an asynchronous flatten to a newer document that only appended actions. */
+export function mergeCompaction(before: DrawingDocument, compacted: DrawingDocument, latest: DrawingDocument): DrawingDocument {
+  if (latest === before) return compacted;
+  const removed = before.cursor - compacted.cursor;
+  if (removed <= 0 || latest.base !== before.base || latest.cursor < before.cursor
+    || before.actions.slice(0, before.cursor).some((action, index) => latest.actions[index] !== action)) return latest;
+  return { base: compacted.base, actions: latest.actions.slice(removed), cursor: latest.cursor - removed };
+}
+
+export async function compactDrawing(drawing: DrawingDocument): Promise<DrawingDocument> {
+  const { flatten, retain } = planCompaction(drawing);
+  if (flatten.length === 0) return drawing;
   const canvas = document.createElement('canvas');
   canvas.width = DRAWING_WIDTH;
   canvas.height = DRAWING_HEIGHT;
   const context = canvas.getContext('2d');
   if (!context) throw new Error('Drawing requires a browser with Canvas support.');
-  await replayDrawing(context, { base: drawing.base, actions: active.slice(0, flattenCount), cursor: flattenCount });
-  const actions = active.slice(flattenCount);
-  return { base: canvas.toDataURL('image/png'), actions, cursor: actions.length };
+  await replayDrawing(context, { base: drawing.base, actions: flatten, cursor: flatten.length });
+  return { base: canvas.toDataURL('image/png'), actions: retain, cursor: retain.length };
+}
+
+/** Use for clear as well as strokes so every edit observes the same undo boundary. */
+export async function appendAndCompact(drawing: DrawingDocument, action: DrawingAction): Promise<DrawingDocument> {
+  return compactDrawing(appendAction(drawing, action));
 }

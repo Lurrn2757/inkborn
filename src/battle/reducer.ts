@@ -1,4 +1,5 @@
 import type { Lesson, Question } from '../../shared/schema.js';
+import { ritualIntegrity } from './ritual.js';
 
 export type ConceptOutcome = 'stable' | 'corrupted' | 'first' | 'corrected' | 'unresolved';
 export interface Answer {
@@ -89,6 +90,13 @@ export function battleReducer(state: BattleState, action: BattleAction, lesson: 
     }
     case 'continue': {
       if (state.phase !== 'feedback' || state.activeConceptId === null) return state;
+      if (ritualIntegrity(state) === 0) {
+        return {
+          ...state, revision: state.revision + 1, phase: 'ending', activeConceptId: null, questionKind: 'initial',
+          outcomes: Object.fromEntries(Object.entries(state.outcomes).map(([id, outcome]) => [id, isTerminalOutcome(outcome) ? outcome : 'unresolved'])),
+          event: event(state, 'retreat', null),
+        };
+      }
       if (state.questionKind === 'initial' && state.outcomes[state.activeConceptId] === 'corrupted') {
         return { ...state, revision: state.revision + 1, phase: 'question', questionKind: 'followup', event: null };
       }

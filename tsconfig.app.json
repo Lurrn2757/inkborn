@@ -15,5 +15,5 @@
     "types": ["vite/client"],
     "tsBuildInfoFile": ".cache/tsconfig.app.tsbuildinfo"
   },
-  "include": ["src", "shared", "tests"]
+  "include": ["src", "shared", "tests", "experiments"]
 }

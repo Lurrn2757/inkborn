@@ -4,7 +4,7 @@ export type Point = { x: number; y: number; pressure: number };
 export type Stroke = { kind: 'stroke'; tool: 'pen' | 'eraser'; color: string; width: number; points: Point[] };
 export type DrawingAction = Stroke | { kind: 'clear' };
 export type DrawingDocument = { base: string | null; actions: DrawingAction[]; cursor: number };
-export type OccupancyMask = { width: number; height: number; cells: number[] };
+export type OccupancyMask = { width: number; height: number; cells: number[]; points?: Array<{ x: number; y: number }> };
 export type Anchor = { conceptId: string; x: number; y: number; attachmentX: number; attachmentY: number };
 export type CreatureAsset = {
   id: string; dataUrl: string; width: number; height: number; hash: string;

@@ -4,6 +4,7 @@ import { sampleLessons } from '../../shared/samples.js';
 import { validateLesson, type Lesson, type Question } from '../../shared/schema.js';
 import { assertBattleInvariants, getBattleInvariantErrors } from '../../src/battle/invariants.js';
 import { battleReducer, createBattle, getCurrentQuestion, type BattleAction, type BattleState } from '../../src/battle/reducer.js';
+import { battleEnding, ritualIntegrity } from '../../src/battle/ritual.js';
 import { summarizeBattle } from '../../src/battle/results.js';
 
 const lesson = sampleLessons[0];
@@ -173,6 +174,7 @@ describe('deterministic finite battle', () => {
       for (let combination = 0; combination < 27; combination += 1) {
         const expected = [combination % 3, Math.floor(combination / 3) % 3, Math.floor(combination / 9) % 3];
         let state = createBattle(circuits);
+        let skippedFollowups = 0;
         for (const index of order) {
           const concept = circuits.concepts[index]!;
           const outcome = expected[index]; // 0 = first; 1 = corrected; 2 = unresolved
@@ -181,13 +183,15 @@ describe('deterministic finite battle', () => {
           state = submit(state, outcome === 0);
           expect(state.event).toMatchObject({ type: outcome === 0 ? 'hit' : 'corrupt', conceptId: concept.id });
           state = reduce(state, { type: 'continue' });
-          if (outcome !== 0) {
+          if (outcome !== 0 && state.phase === 'ending') skippedFollowups += 1;
+          if (outcome !== 0 && state.phase !== 'ending') {
             expect(requireQuestion(state).id).toBe(concept.followup.id);
             state = submit(state, outcome === 1);
             expect(state.event).toMatchObject({ type: outcome === 1 ? 'recovery' : 'unresolved', conceptId: concept.id });
             state = reduce(state, { type: 'continue' });
           }
-          expect(state.outcomes[concept.id]).toBe(outcome === 0 ? 'first' : outcome === 1 ? 'corrected' : 'unresolved');
+          if (ritualIntegrity(state) === 0) expected[index] = 2;
+          expect(state.outcomes[concept.id]).toBe(expected[index] === 0 ? 'first' : expected[index] === 1 ? 'corrected' : 'unresolved');
           expect(Object.keys(state.outcomes)).toEqual(circuits.concepts.map((entry) => entry.id));
         }
         expect(state.phase).toBe('ending');
@@ -195,7 +199,7 @@ describe('deterministic finite battle', () => {
         const first = expected.filter((outcome) => outcome === 0).length;
         const corrected = expected.filter((outcome) => outcome === 1).length;
         const unresolved = expected.filter((outcome) => outcome === 2).length;
-        expect(summarizeBattle(state)).toEqual({ first, corrected, unresolved, correct: first + corrected, total: 6 - first });
+        expect(summarizeBattle(state)).toEqual({ first, corrected, unresolved, correct: first + corrected, total: 6 - first - skippedFollowups });
         expect(state.answers.length).toBeGreaterThanOrEqual(3);
         expect(state.answers.length).toBeLessThanOrEqual(6);
         expect(new Set(state.answers.map((answer) => answer.questionId)).size).toBe(state.answers.length);
@@ -212,6 +216,47 @@ describe('deterministic finite battle', () => {
     state = submit(state, false);
     expect(summarizeBattle(state)).toEqual({ first: 0, corrected: 0, unresolved: 0, correct: 0, total: 1 });
     expect(summarizeBattle({ ...state, outcomes: { ...state.outcomes, 'closed-path': 'first' } }).first).toBe(0);
+  });
+
+  it('spends one ward per committed mistake, keeps recovery scars, and preserves feedback before an exhausted retreat', () => {
+    let state = createBattle(circuits);
+    expect(ritualIntegrity(state)).toBe(5);
+    expect(battleEnding(state)).toBe('dominant');
+    state = reduce(state, { type: 'select', conceptId: circuits.concepts[0]!.id });
+    const pending = state;
+    state = submit(state, false);
+    expect(ritualIntegrity(state)).toBe(4);
+    expect(submit(state, false)).toBe(state); // repeated submission during feedback
+    expect(ritualIntegrity(state)).toBe(4);
+    expect(ritualIntegrity(pending)).toBe(5);
+    state = reduce(state, { type: 'continue' });
+    state = submit(state, true);
+    expect(ritualIntegrity(state)).toBe(4);
+    expect(state.event?.type).toBe('recovery');
+    expect(battleEnding(state)).toBe('scarred');
+
+    state = createBattle(circuits);
+    for (const concept of circuits.concepts) {
+      state = reduce(state, { type: 'select', conceptId: concept.id });
+      state = submit(state, false);
+      if (ritualIntegrity(state) === 0) {
+        expect(state.phase).toBe('feedback');
+        expect(state.outcomes[concept.id]).toBe('corrupted');
+        expect(summarizeBattle(state).unresolved).toBe(2);
+      }
+      state = reduce(state, { type: 'continue' });
+      if (state.phase === 'ending') break;
+      state = submit(state, false);
+      state = reduce(state, { type: 'continue' });
+    }
+    expect(state.phase).toBe('ending');
+    expect(ritualIntegrity(state)).toBe(0);
+    expect(battleEnding(state)).toBe('retreat');
+    expect(state.answers).toHaveLength(5);
+    expect(summarizeBattle(state)).toEqual({ first: 0, corrected: 0, unresolved: 3, correct: 0, total: 5 });
+    expect(Object.values(state.outcomes)).toEqual(['unresolved', 'unresolved', 'unresolved']);
+    expect(reduce(state, { type: 'select', conceptId: circuits.concepts[2]!.id })).toBe(state);
+    expect(reduce(state, { type: 'continue' })).toBe(state);
   });
 
   it('detects fabricated outcomes and duplicated history in restored snapshots', () => {

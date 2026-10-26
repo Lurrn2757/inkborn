@@ -4,6 +4,8 @@ import { App } from './app/App.js';
 import { ErrorBoundary } from './app/ErrorBoundary.js';
 import './styles/base.css';
 import './creative/theme.css';
+import './creative/ritual.css';
+import './creative/siege.css';
 
 const root = document.getElementById('root');
 if (!root) throw new Error('The application root is missing.');

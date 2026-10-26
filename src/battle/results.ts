@@ -1,4 +1,5 @@
 import type { BattleState, Answer } from './reducer.js';
+import { ritualIntegrity } from './ritual.js';
 
 export interface BattleSummary {
   first: number;
@@ -26,6 +27,7 @@ export function summarizeBattle(state: BattleState): BattleSummary {
       if (followup.correct) summary.corrected += 1;
       else summary.unresolved += 1;
     }
+    else if (initial && !initial.correct && ritualIntegrity(state) === 0 && (state.phase === 'ending' || state.phase === 'results')) summary.unresolved += 1;
   }
   return summary;
 }
